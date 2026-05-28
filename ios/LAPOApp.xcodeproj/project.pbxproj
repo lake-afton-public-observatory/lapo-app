@@ -1,0 +1,466 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		12CD24654AD52491ADB628F3 /* HoursCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C0D97010D95A61CE655EA5 /* HoursCard.swift */; };
+		12D901D31C70E36C85C609CD /* LAPOClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391F118CFDC1D398B4E55B0D /* LAPOClient.swift */; };
+		440484972A2569BDF772B8FE /* Hours.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCDA06FC45B0B3E057F2CC7 /* Hours.swift */; };
+		54F4538CC76220333D171BF2 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08DA48F668B343861586F9A /* AppStore.swift */; };
+		9E1CA9047DDEC4BA5CF7B85E /* LAPOAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15ABFAEDCE4F396022FF42C /* LAPOAppTests.swift */; };
+		AC118218E2D952B19469F498 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42B8FF9D21C1EF4539A47403 /* Assets.xcassets */; };
+		B45D3479A745B804F59BBFA1 /* WhatsUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09942FA7E232A6C2CCEA67 /* WhatsUp.swift */; };
+		D5583855F20BFBCF3036D7CF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E76BC32A27F8DAC3F3800D /* ContentView.swift */; };
+		E393822ABA5CA883C8BDA517 /* WhatsUpList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEAF92B67C6530383F9F5D0 /* WhatsUpList.swift */; };
+		E7359CCED055AA7FACD26B86 /* LAPOApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1885B0F5E824A9DA95E417 /* LAPOApp.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		536781F906637A8D850ACA03 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8710BEAFDF18F55E1ADEEE5D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 33CF2042BB1FDAA4AE84EFAE;
+			remoteInfo = LAPOApp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		03E76BC32A27F8DAC3F3800D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		391F118CFDC1D398B4E55B0D /* LAPOClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAPOClient.swift; sourceTree = "<group>"; };
+		42B8FF9D21C1EF4539A47403 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		50D00D8D6E1ABE6FB7A560D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		AAEAF92B67C6530383F9F5D0 /* WhatsUpList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsUpList.swift; sourceTree = "<group>"; };
+		ABCDA06FC45B0B3E057F2CC7 /* Hours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hours.swift; sourceTree = "<group>"; };
+		BB09942FA7E232A6C2CCEA67 /* WhatsUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsUp.swift; sourceTree = "<group>"; };
+		C0C0D97010D95A61CE655EA5 /* HoursCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoursCard.swift; sourceTree = "<group>"; };
+		D08DA48F668B343861586F9A /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
+		DCE662DAC01CCFE3900E0869 /* LAPOAppTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = LAPOAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E15ABFAEDCE4F396022FF42C /* LAPOAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAPOAppTests.swift; sourceTree = "<group>"; };
+		F68C756D6947989CAFFC756B /* LAPOApp.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = LAPOApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA1885B0F5E824A9DA95E417 /* LAPOApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAPOApp.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		391BB97C5EE326F812E283A6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F68C756D6947989CAFFC756B /* LAPOApp.app */,
+				DCE662DAC01CCFE3900E0869 /* LAPOAppTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5946680A3419D8E4F22E8DAD /* LAPOApp */ = {
+			isa = PBXGroup;
+			children = (
+				42B8FF9D21C1EF4539A47403 /* Assets.xcassets */,
+				50D00D8D6E1ABE6FB7A560D9 /* Info.plist */,
+				FA1885B0F5E824A9DA95E417 /* LAPOApp.swift */,
+				EF02C9D6B2425AD32F75B5E9 /* Models */,
+				9246A4A32816C5E6D2089C67 /* Network */,
+				946D92DB0797128C7BDABEB2 /* Store */,
+				A122D56047263D6BF9763828 /* Views */,
+			);
+			path = LAPOApp;
+			sourceTree = "<group>";
+		};
+		5A658D1175522968AD00F184 = {
+			isa = PBXGroup;
+			children = (
+				5946680A3419D8E4F22E8DAD /* LAPOApp */,
+				FD04D0ABB525909B76C4EFCF /* LAPOAppTests */,
+				391BB97C5EE326F812E283A6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9246A4A32816C5E6D2089C67 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				391F118CFDC1D398B4E55B0D /* LAPOClient.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		946D92DB0797128C7BDABEB2 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				D08DA48F668B343861586F9A /* AppStore.swift */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
+		A122D56047263D6BF9763828 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				03E76BC32A27F8DAC3F3800D /* ContentView.swift */,
+				C0C0D97010D95A61CE655EA5 /* HoursCard.swift */,
+				AAEAF92B67C6530383F9F5D0 /* WhatsUpList.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		EF02C9D6B2425AD32F75B5E9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				ABCDA06FC45B0B3E057F2CC7 /* Hours.swift */,
+				BB09942FA7E232A6C2CCEA67 /* WhatsUp.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		FD04D0ABB525909B76C4EFCF /* LAPOAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				E15ABFAEDCE4F396022FF42C /* LAPOAppTests.swift */,
+			);
+			path = LAPOAppTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2284CC2D6AC470220C845351 /* LAPOAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B8E2AC5810B4A6CE680607F6 /* Build configuration list for PBXNativeTarget "LAPOAppTests" */;
+			buildPhases = (
+				818F0FB75A2469844702EA1D /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4E2149F6DAD9346D0D56199C /* PBXTargetDependency */,
+			);
+			name = LAPOAppTests;
+			packageProductDependencies = (
+			);
+			productName = LAPOAppTests;
+			productReference = DCE662DAC01CCFE3900E0869 /* LAPOAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		33CF2042BB1FDAA4AE84EFAE /* LAPOApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 82DCAFBCA7A026776B1C8886 /* Build configuration list for PBXNativeTarget "LAPOApp" */;
+			buildPhases = (
+				078247E4B0C34BE340D77B42 /* Sources */,
+				9DED75AE0DB541ED4640E2EC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LAPOApp;
+			packageProductDependencies = (
+			);
+			productName = LAPOApp;
+			productReference = F68C756D6947989CAFFC756B /* LAPOApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8710BEAFDF18F55E1ADEEE5D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					2284CC2D6AC470220C845351 = {
+						DevelopmentTeam = "";
+					};
+					33CF2042BB1FDAA4AE84EFAE = {
+						DevelopmentTeam = "";
+					};
+				};
+			};
+			buildConfigurationList = 41287A49354B8E61EBB6F33D /* Build configuration list for PBXProject "LAPOApp" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 5A658D1175522968AD00F184;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 391BB97C5EE326F812E283A6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				33CF2042BB1FDAA4AE84EFAE /* LAPOApp */,
+				2284CC2D6AC470220C845351 /* LAPOAppTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9DED75AE0DB541ED4640E2EC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC118218E2D952B19469F498 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		078247E4B0C34BE340D77B42 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				54F4538CC76220333D171BF2 /* AppStore.swift in Sources */,
+				D5583855F20BFBCF3036D7CF /* ContentView.swift in Sources */,
+				440484972A2569BDF772B8FE /* Hours.swift in Sources */,
+				12CD24654AD52491ADB628F3 /* HoursCard.swift in Sources */,
+				E7359CCED055AA7FACD26B86 /* LAPOApp.swift in Sources */,
+				12D901D31C70E36C85C609CD /* LAPOClient.swift in Sources */,
+				B45D3479A745B804F59BBFA1 /* WhatsUp.swift in Sources */,
+				E393822ABA5CA883C8BDA517 /* WhatsUpList.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		818F0FB75A2469844702EA1D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9E1CA9047DDEC4BA5CF7B85E /* LAPOAppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4E2149F6DAD9346D0D56199C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 33CF2042BB1FDAA4AE84EFAE /* LAPOApp */;
+			targetProxy = 536781F906637A8D850ACA03 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		10919131703D24C20AC3D702 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		46268083D7BFF1B6D0AEF29F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = LAPOApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.lakeafton.app;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		92547F4A3764FA70A68A6575 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		A72B8A283A4088D16DAFB4F8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.lakeafton.app.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LAPOApp.app/LAPOApp";
+			};
+			name = Debug;
+		};
+		D176345D389EF7AD2E6261AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = LAPOApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.lakeafton.app;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FA027B928A6BAEE599AF3FAD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.lakeafton.app.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LAPOApp.app/LAPOApp";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		41287A49354B8E61EBB6F33D /* Build configuration list for PBXProject "LAPOApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				10919131703D24C20AC3D702 /* Debug */,
+				92547F4A3764FA70A68A6575 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		82DCAFBCA7A026776B1C8886 /* Build configuration list for PBXNativeTarget "LAPOApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D176345D389EF7AD2E6261AA /* Debug */,
+				46268083D7BFF1B6D0AEF29F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		B8E2AC5810B4A6CE680607F6 /* Build configuration list for PBXNativeTarget "LAPOAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A72B8A283A4088D16DAFB4F8 /* Debug */,
+				FA027B928A6BAEE599AF3FAD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8710BEAFDF18F55E1ADEEE5D /* Project object */;
+}

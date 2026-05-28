@@ -1,0 +1,38 @@
+import Foundation
+
+final class LAPOClient {
+    static let shared = LAPOClient()
+
+    // Replace with your deployed Heroku URL
+    private let base = URL(string: "https://lapo-api.herokuapp.com")!
+
+    private let decoder: JSONDecoder = {
+        let d = JSONDecoder()
+        return d
+    }()
+
+    func hours() async throws -> HoursResponse {
+        try await get("v1/hours")
+    }
+
+    func whatsUpNext() async throws -> WhatsUpResponse {
+        try await get("v1/celestial/whatsup-next")
+    }
+
+    private func get<T: Decodable>(_ path: String) async throws -> T {
+        let url = base.appendingPathComponent(path)
+        let (data, response) = try await URLSession.shared.data(from: url)
+        guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
+            throw LAPOError.badResponse
+        }
+        return try decoder.decode(T.self, from: data)
+    }
+}
+
+enum LAPOError: LocalizedError {
+    case badResponse
+
+    var errorDescription: String? {
+        "Unable to reach the observatory API. Check your connection and try again."
+    }
+}

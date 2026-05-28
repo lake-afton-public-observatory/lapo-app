@@ -1,0 +1,24 @@
+# Xcode
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+*.xcworkspace/xcshareddata/
+DerivedData/
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# iOS build
+ios/build/
+
+# Android
+android/.gradle/
+android/build/
+android/local.properties
+*.apk
+*.aab
+
+# macOS
+.DS_Store
+
+# CocoaPods (not used, but just in case)
+Pods/
