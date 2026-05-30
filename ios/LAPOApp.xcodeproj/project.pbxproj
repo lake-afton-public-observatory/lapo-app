@@ -14,6 +14,7 @@
 		9E1CA9047DDEC4BA5CF7B85E /* LAPOAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15ABFAEDCE4F396022FF42C /* LAPOAppTests.swift */; };
 		AC118218E2D952B19469F498 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42B8FF9D21C1EF4539A47403 /* Assets.xcassets */; };
 		B45D3479A745B804F59BBFA1 /* WhatsUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09942FA7E232A6C2CCEA67 /* WhatsUp.swift */; };
+		B7162D682FCB6C9900DCAE37 /* LAPO App Icon.icon in Resources */ = {isa = PBXBuildFile; fileRef = B7162D672FCB6C9900DCAE37 /* LAPO App Icon.icon */; };
 		D5583855F20BFBCF3036D7CF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E76BC32A27F8DAC3F3800D /* ContentView.swift */; };
 		E393822ABA5CA883C8BDA517 /* WhatsUpList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEAF92B67C6530383F9F5D0 /* WhatsUpList.swift */; };
 		E7359CCED055AA7FACD26B86 /* LAPOApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1885B0F5E824A9DA95E417 /* LAPOApp.swift */; };
@@ -36,12 +37,13 @@
 		50D00D8D6E1ABE6FB7A560D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		AAEAF92B67C6530383F9F5D0 /* WhatsUpList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsUpList.swift; sourceTree = "<group>"; };
 		ABCDA06FC45B0B3E057F2CC7 /* Hours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hours.swift; sourceTree = "<group>"; };
+		B7162D672FCB6C9900DCAE37 /* LAPO App Icon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = "LAPO App Icon.icon"; sourceTree = "<group>"; };
 		BB09942FA7E232A6C2CCEA67 /* WhatsUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsUp.swift; sourceTree = "<group>"; };
 		C0C0D97010D95A61CE655EA5 /* HoursCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoursCard.swift; sourceTree = "<group>"; };
 		D08DA48F668B343861586F9A /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
-		DCE662DAC01CCFE3900E0869 /* LAPOAppTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = LAPOAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCE662DAC01CCFE3900E0869 /* LAPOAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LAPOAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E15ABFAEDCE4F396022FF42C /* LAPOAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAPOAppTests.swift; sourceTree = "<group>"; };
-		F68C756D6947989CAFFC756B /* LAPOApp.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = LAPOApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F68C756D6947989CAFFC756B /* LAPOApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LAPOApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA1885B0F5E824A9DA95E417 /* LAPOApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAPOApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -75,6 +77,7 @@
 				5946680A3419D8E4F22E8DAD /* LAPOApp */,
 				FD04D0ABB525909B76C4EFCF /* LAPOAppTests */,
 				391BB97C5EE326F812E283A6 /* Products */,
+				B7162D672FCB6C9900DCAE37 /* LAPO App Icon.icon */,
 			);
 			sourceTree = "<group>";
 		};
@@ -167,12 +170,9 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 2620;
 				TargetAttributes = {
 					2284CC2D6AC470220C845351 = {
-						DevelopmentTeam = "";
-					};
-					33CF2042BB1FDAA4AE84EFAE = {
 						DevelopmentTeam = "";
 					};
 				};
@@ -203,6 +203,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC118218E2D952B19469F498 /* Assets.xcassets in Resources */,
+				B7162D682FCB6C9900DCAE37 /* LAPO App Icon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,6 +282,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -301,6 +303,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.9;
@@ -310,17 +313,25 @@
 		46268083D7BFF1B6D0AEF29F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "LAPO App Icon";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = VVXKMPWT64;
 				INFOPLIST_FILE = LAPOApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Lake Afton Public Observatory";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.lakeafton.app;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = PerspectiveGrid.LAPO;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -362,6 +373,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -375,6 +387,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.9;
@@ -400,17 +413,25 @@
 		D176345D389EF7AD2E6261AA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "LAPO App Icon";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = VVXKMPWT64;
 				INFOPLIST_FILE = LAPOApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Lake Afton Public Observatory";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.lakeafton.app;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = PerspectiveGrid.LAPO;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
