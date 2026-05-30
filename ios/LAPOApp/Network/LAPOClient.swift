@@ -4,7 +4,7 @@ final class LAPOClient {
     static let shared = LAPOClient()
 
     // Replace with your deployed Heroku URL
-    private let base = URL(string: "https://lapo-api.herokuapp.com")!
+    private let base = URL(string: "https://api.lakeafton.com/")!
 
     private let decoder: JSONDecoder = {
         let d = JSONDecoder()
@@ -20,7 +20,7 @@ final class LAPOClient {
     }
 
     private func get<T: Decodable>(_ path: String) async throws -> T {
-        let url = base.appendingPathComponent(path)
+        guard let url = URL(string: "\(base)\(path)") else { throw LAPOError.badResponse }
         let (data, response) = try await URLSession.shared.data(from: url)
         guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
             throw LAPOError.badResponse
