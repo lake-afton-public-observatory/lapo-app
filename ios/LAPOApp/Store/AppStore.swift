@@ -7,7 +7,11 @@ final class AppStore: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
 
-    private let client = LAPOClient.shared
+    private let client: any LAPOClientProtocol
+
+    init(client: any LAPOClientProtocol = LAPOClient.shared) {
+        self.client = client
+    }
 
     func refresh() async {
         isLoading = true
