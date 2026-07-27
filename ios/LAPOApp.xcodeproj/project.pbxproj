@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		12CD24654AD52491ADB628F3 /* HoursCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C0D97010D95A61CE655EA5 /* HoursCard.swift */; };
 		12D901D31C70E36C85C609CD /* LAPOClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391F118CFDC1D398B4E55B0D /* LAPOClient.swift */; };
+		166186C064F34EB5B46B8189 /* LAPOClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9708E0AF474FE99E88AE64 /* LAPOClientTests.swift */; };
 		440484972A2569BDF772B8FE /* Hours.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCDA06FC45B0B3E057F2CC7 /* Hours.swift */; };
 		54F4538CC76220333D171BF2 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08DA48F668B343861586F9A /* AppStore.swift */; };
 		9E1CA9047DDEC4BA5CF7B85E /* LAPOAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15ABFAEDCE4F396022FF42C /* LAPOAppTests.swift */; };
@@ -35,6 +36,7 @@
 		03E76BC32A27F8DAC3F3800D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		391F118CFDC1D398B4E55B0D /* LAPOClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAPOClient.swift; sourceTree = "<group>"; };
 		42B8FF9D21C1EF4539A47403 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4B9708E0AF474FE99E88AE64 /* LAPOClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAPOClientTests.swift; sourceTree = "<group>"; };
 		50D00D8D6E1ABE6FB7A560D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		AAEAF92B67C6530383F9F5D0 /* WhatsUpList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsUpList.swift; sourceTree = "<group>"; };
 		ABCDA06FC45B0B3E057F2CC7 /* Hours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hours.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 		FD04D0ABB525909B76C4EFCF /* LAPOAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				4B9708E0AF474FE99E88AE64 /* LAPOClientTests.swift */,
 				E2CB3741326949DBAB095078 /* AppStoreTests.swift */,
 				E15ABFAEDCE4F396022FF42C /* LAPOAppTests.swift */,
 			);
@@ -233,6 +236,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E1CA9047DDEC4BA5CF7B85E /* LAPOAppTests.swift in Sources */,
+				166186C064F34EB5B46B8189 /* LAPOClientTests.swift in Sources */,
 				D710423EF5CD4AF8872767C1 /* AppStoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,10 +11,16 @@ final class LAPOClient: LAPOClientProtocol {
     // Replace with your deployed Heroku URL
     private let base = URL(string: "https://api.lakeafton.com/")!
 
+    private let session: URLSession
+
     private let decoder: JSONDecoder = {
         let d = JSONDecoder()
         return d
     }()
+
+    init(session: URLSession = .shared) {
+        self.session = session
+    }
 
     func hours() async throws -> HoursResponse {
         try await get("v1/hours")
@@ -26,7 +32,7 @@ final class LAPOClient: LAPOClientProtocol {
 
     private func get<T: Decodable>(_ path: String) async throws -> T {
         guard let url = URL(string: "\(base)\(path)") else { throw LAPOError.badResponse }
-        let (data, response) = try await URLSession.shared.data(from: url)
+        let (data, response) = try await session.data(from: url)
         guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
             throw LAPOError.badResponse
         }
