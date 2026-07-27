@@ -1,6 +1,11 @@
 import Foundation
 
-final class LAPOClient {
+protocol LAPOClientProtocol {
+    func hours() async throws -> HoursResponse
+    func whatsUpNext() async throws -> WhatsUpResponse
+}
+
+final class LAPOClient: LAPOClientProtocol {
     static let shared = LAPOClient()
 
     // Replace with your deployed Heroku URL

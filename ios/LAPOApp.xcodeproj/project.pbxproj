@@ -17,6 +17,7 @@
 		B45D3479A745B804F59BBFA1 /* WhatsUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09942FA7E232A6C2CCEA67 /* WhatsUp.swift */; };
 		B7162D682FCB6C9900DCAE37 /* LAPO App Icon.icon in Resources */ = {isa = PBXBuildFile; fileRef = B7162D672FCB6C9900DCAE37 /* LAPO App Icon.icon */; };
 		D5583855F20BFBCF3036D7CF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E76BC32A27F8DAC3F3800D /* ContentView.swift */; };
+		D710423EF5CD4AF8872767C1 /* AppStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CB3741326949DBAB095078 /* AppStoreTests.swift */; };
 		E393822ABA5CA883C8BDA517 /* WhatsUpList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEAF92B67C6530383F9F5D0 /* WhatsUpList.swift */; };
 		E7359CCED055AA7FACD26B86 /* LAPOApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1885B0F5E824A9DA95E417 /* LAPOApp.swift */; };
 /* End PBXBuildFile section */
@@ -45,6 +46,7 @@
 		D08DA48F668B343861586F9A /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		DCE662DAC01CCFE3900E0869 /* LAPOAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LAPOAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E15ABFAEDCE4F396022FF42C /* LAPOAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAPOAppTests.swift; sourceTree = "<group>"; };
+		E2CB3741326949DBAB095078 /* AppStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreTests.swift; sourceTree = "<group>"; };
 		F68C756D6947989CAFFC756B /* LAPOApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LAPOApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA1885B0F5E824A9DA95E417 /* LAPOApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAPOApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -122,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				4B9708E0AF474FE99E88AE64 /* LAPOClientTests.swift */,
+				E2CB3741326949DBAB095078 /* AppStoreTests.swift */,
 				E15ABFAEDCE4F396022FF42C /* LAPOAppTests.swift */,
 			);
 			path = LAPOAppTests;
@@ -234,6 +237,7 @@
 			files = (
 				9E1CA9047DDEC4BA5CF7B85E /* LAPOAppTests.swift in Sources */,
 				166186C064F34EB5B46B8189 /* LAPOClientTests.swift in Sources */,
+				D710423EF5CD4AF8872767C1 /* AppStoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
