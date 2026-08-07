@@ -20,6 +20,18 @@ final class LAPOAppTests: XCTestCase {
         XCTAssertEqual(obj.name, "M1")
     }
 
+    func testSkyObjectDecodesEmptyNameArrayAsUnknown() throws {
+        // REGRESSION: SkyObject.init(from:) falls back to "Unknown" via
+        // `names.first ?? "Unknown"` when the name array is empty -- this
+        // branch had no coverage, unlike the non-empty-array and plain-string
+        // cases above.
+        let json = """
+        {"name": [], "magnitude": 1.0}
+        """.data(using: .utf8)!
+        let obj = try JSONDecoder().decode(SkyObject.self, from: json)
+        XCTAssertEqual(obj.name, "Unknown")
+    }
+
     func testBrightnessLabel() {
         XCTAssertEqual(SkyObject.makeStub(magnitude: -5).brightnessLabel, "Extremely bright")
         XCTAssertEqual(SkyObject.makeStub(magnitude: -1).brightnessLabel, "Very bright")
