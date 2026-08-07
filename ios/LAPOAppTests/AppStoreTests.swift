@@ -64,6 +64,30 @@ final class AppStoreTests: XCTestCase {
         XCTAssertFalse(store.isLoading)
     }
 
+    func testRefreshStillPopulatesWhatsUpWhenHoursFails() async throws {
+        // REGRESSION: hours and whatsUp are fetched concurrently via `async let`,
+        // but were previously assigned with two sequential `try await`s inside one
+        // do/catch -- if hours threw, the whatsUp result (already resolved
+        // successfully in parallel) was discarded instead of being applied.
+        let client = MockClient(hoursResult: .failure(TestError.boom), whatsUpResult: .success(try makeWhatsUp()))
+        let store = AppStore(client: client)
+
+        await store.refresh()
+
+        XCTAssertNotNil(store.whatsUp)
+        XCTAssertNotNil(store.errorMessage)
+    }
+
+    func testRefreshStillPopulatesHoursWhenWhatsUpFails() async throws {
+        let client = MockClient(hoursResult: .success(makeHours()), whatsUpResult: .failure(TestError.boom))
+        let store = AppStore(client: client)
+
+        await store.refresh()
+
+        XCTAssertNotNil(store.hours)
+        XCTAssertNotNil(store.errorMessage)
+    }
+
     func testRefreshClearsAStalePreviousErrorMessageOnSuccess() async throws {
         // REGRESSION-SHAPED: errorMessage is only ever set inside the catch
         // block, so if refresh() didn't explicitly reset it to nil at the

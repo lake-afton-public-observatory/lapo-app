@@ -16,14 +16,24 @@ final class AppStore: ObservableObject {
     func refresh() async {
         isLoading = true
         errorMessage = nil
+
+        async let hoursResult = client.hours()
+        async let whatsUpResult = client.whatsUpNext()
+
+        // Await and assign each result independently -- both requests run
+        // concurrently, so a failure in one must not discard a result the
+        // other already resolved successfully.
         do {
-            async let hoursResult = client.hours()
-            async let whatsUpResult = client.whatsUpNext()
             hours = try await hoursResult
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+        do {
             whatsUp = try await whatsUpResult
         } catch {
             errorMessage = error.localizedDescription
         }
+
         isLoading = false
     }
 }
