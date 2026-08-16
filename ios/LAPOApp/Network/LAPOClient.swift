@@ -8,7 +8,6 @@ protocol LAPOClientProtocol {
 final class LAPOClient: LAPOClientProtocol {
     static let shared = LAPOClient()
 
-    // Replace with your deployed Heroku URL
     private let base = URL(string: "https://api.lakeafton.com/")!
 
     private let session: URLSession
