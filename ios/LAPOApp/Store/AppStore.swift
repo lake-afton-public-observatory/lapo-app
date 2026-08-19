@@ -34,18 +34,18 @@ final class AppStore: ObservableObject {
         // Await and collect each result independently -- both requests run
         // concurrently, so a failure in one must not discard a result the
         // other already resolved successfully.
-        var newErrorMessage: String?
         var newHours: HoursResponse?
         var newWhatsUp: WhatsUpResponse?
+        var errors: [String] = []
         do {
             newHours = try await hoursResult
         } catch {
-            newErrorMessage = error.localizedDescription
+            errors.append(error.localizedDescription)
         }
         do {
             newWhatsUp = try await whatsUpResult
         } catch {
-            newErrorMessage = error.localizedDescription
+            errors.append(error.localizedDescription)
         }
 
         // If a newer refresh() call started while this one was still
@@ -56,7 +56,10 @@ final class AppStore: ObservableObject {
 
         if let newHours { hours = newHours }
         if let newWhatsUp { whatsUp = newWhatsUp }
-        errorMessage = newErrorMessage
+        // If both requests fail, combine both messages -- assigning
+        // errorMessage separately in each catch would silently drop
+        // whichever one was set first.
+        errorMessage = errors.isEmpty ? nil : errors.joined(separator: "\n")
 
         isLoading = false
     }
