@@ -101,4 +101,72 @@ final class AppStoreTests: XCTestCase {
 
         XCTAssertNil(store.errorMessage)
     }
+
+    /// A one-shot gate an async call can await until another task opens it.
+    /// Lets a test deterministically suspend one client call mid-flight
+    /// while a second, overlapping refresh() runs to completion.
+    private actor Gate {
+        private var isOpen = false
+        private var waiters: [CheckedContinuation<Void, Never>] = []
+
+        func wait() async {
+            if isOpen { return }
+            await withCheckedContinuation { waiters.append($0) }
+        }
+
+        func open() {
+            isOpen = true
+            waiters.forEach { $0.resume() }
+            waiters.removeAll()
+        }
+    }
+
+    /// A client whose first hours() call blocks on `gate` (simulating a slow
+    /// network response) while every subsequent call resolves immediately.
+    private actor SlowFirstHoursClient: LAPOClientProtocol {
+        private let gate: Gate
+        private let whatsUpResponse: WhatsUpResponse
+        private var callCount = 0
+
+        init(gate: Gate, whatsUpResponse: WhatsUpResponse) {
+            self.gate = gate
+            self.whatsUpResponse = whatsUpResponse
+        }
+
+        func hours() async throws -> HoursResponse {
+            callCount += 1
+            if callCount == 1 {
+                await gate.wait()
+                return HoursResponse(hours: .init(prettyHours: "STALE", open: "0", close: "0"))
+            }
+            return HoursResponse(hours: .init(prettyHours: "FRESH", open: "0", close: "0"))
+        }
+
+        func whatsUpNext() async throws -> WhatsUpResponse {
+            whatsUpResponse
+        }
+    }
+
+    func testOverlappingRefreshDoesNotLetAStaleCallOverwriteANewerOne() async throws {
+        // REGRESSION: refresh() had no guard against overlapping calls. If a
+        // user pulls-to-refresh while the initial `.task` load is still in
+        // flight, two refresh() calls run concurrently; whichever one's
+        // network request resolves *last* used to win unconditionally, even
+        // if it was the older (now-stale) call -- silently reverting state
+        // the newer refresh had already applied.
+        let gate = Gate()
+        let client = SlowFirstHoursClient(gate: gate, whatsUpResponse: try makeWhatsUp())
+        let store = AppStore(client: client)
+
+        let firstRefresh = Task { await store.refresh() }
+        try await Task.sleep(nanoseconds: 100_000_000) // let the first call reach hours() and block
+
+        await store.refresh() // second, overlapping call resolves immediately
+        XCTAssertEqual(store.hours?.hours.prettyHours, "FRESH")
+
+        gate.open() // release the first call's stale hours() response
+        await firstRefresh.value
+
+        XCTAssertEqual(store.hours?.hours.prettyHours, "FRESH")
+    }
 }
