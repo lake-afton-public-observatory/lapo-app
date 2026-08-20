@@ -9,30 +9,54 @@ final class AppStore: ObservableObject {
 
     private let client: any LAPOClientProtocol
 
+    // Bumped on every refresh() call and captured locally so a call can tell,
+    // once its network requests resolve, whether it's still the most recent
+    // in-flight refresh. Without this, an overlapping refresh (e.g. the user
+    // pulls-to-refresh while the initial `.task` load is still in flight)
+    // can have its slower call resolve *after* the newer one and clobber
+    // fresher state with stale results.
+    private var refreshToken = 0
+
     init(client: any LAPOClientProtocol = LAPOClient.shared) {
         self.client = client
     }
 
     func refresh() async {
+        refreshToken += 1
+        let token = refreshToken
+
         isLoading = true
         errorMessage = nil
 
         async let hoursResult = client.hours()
         async let whatsUpResult = client.whatsUpNext()
 
-        // Await and assign each result independently -- both requests run
+        // Await and collect each result independently -- both requests run
         // concurrently, so a failure in one must not discard a result the
         // other already resolved successfully.
+        var newErrorMessage: String?
+        var newHours: HoursResponse?
+        var newWhatsUp: WhatsUpResponse?
         do {
-            hours = try await hoursResult
+            newHours = try await hoursResult
         } catch {
-            errorMessage = error.localizedDescription
+            newErrorMessage = error.localizedDescription
         }
         do {
-            whatsUp = try await whatsUpResult
+            newWhatsUp = try await whatsUpResult
         } catch {
-            errorMessage = error.localizedDescription
+            newErrorMessage = error.localizedDescription
         }
+
+        // If a newer refresh() call started while this one was still
+        // awaiting its network requests, drop this call's results entirely
+        // -- applying them now would race with (and could overwrite) state
+        // the newer call already produced.
+        guard token == refreshToken else { return }
+
+        if let newHours { hours = newHours }
+        if let newWhatsUp { whatsUp = newWhatsUp }
+        errorMessage = newErrorMessage
 
         isLoading = false
     }
