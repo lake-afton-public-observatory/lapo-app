@@ -17,8 +17,14 @@ final class AppStoreTests: XCTestCase {
         }
     }
 
-    private enum TestError: Error {
-        case boom
+    private enum TestError: LocalizedError {
+        case boom(String)
+
+        var errorDescription: String? {
+            switch self {
+            case .boom(let message): return message
+            }
+        }
     }
 
     private func makeHours() -> HoursResponse {
@@ -45,7 +51,7 @@ final class AppStoreTests: XCTestCase {
     }
 
     func testRefreshSetsErrorMessageWhenHoursFails() async throws {
-        let client = MockClient(hoursResult: .failure(TestError.boom), whatsUpResult: .success(try makeWhatsUp()))
+        let client = MockClient(hoursResult: .failure(TestError.boom("boom")), whatsUpResult: .success(try makeWhatsUp()))
         let store = AppStore(client: client)
 
         await store.refresh()
@@ -55,7 +61,7 @@ final class AppStoreTests: XCTestCase {
     }
 
     func testRefreshSetsErrorMessageWhenWhatsUpFails() async throws {
-        let client = MockClient(hoursResult: .success(makeHours()), whatsUpResult: .failure(TestError.boom))
+        let client = MockClient(hoursResult: .success(makeHours()), whatsUpResult: .failure(TestError.boom("boom")))
         let store = AppStore(client: client)
 
         await store.refresh()
@@ -69,7 +75,7 @@ final class AppStoreTests: XCTestCase {
         // but were previously assigned with two sequential `try await`s inside one
         // do/catch -- if hours threw, the whatsUp result (already resolved
         // successfully in parallel) was discarded instead of being applied.
-        let client = MockClient(hoursResult: .failure(TestError.boom), whatsUpResult: .success(try makeWhatsUp()))
+        let client = MockClient(hoursResult: .failure(TestError.boom("boom")), whatsUpResult: .success(try makeWhatsUp()))
         let store = AppStore(client: client)
 
         await store.refresh()
@@ -79,7 +85,7 @@ final class AppStoreTests: XCTestCase {
     }
 
     func testRefreshStillPopulatesHoursWhenWhatsUpFails() async throws {
-        let client = MockClient(hoursResult: .success(makeHours()), whatsUpResult: .failure(TestError.boom))
+        let client = MockClient(hoursResult: .success(makeHours()), whatsUpResult: .failure(TestError.boom("boom")))
         let store = AppStore(client: client)
 
         await store.refresh()
@@ -168,5 +174,22 @@ final class AppStoreTests: XCTestCase {
         await firstRefresh.value
 
         XCTAssertEqual(store.hours?.hours.prettyHours, "FRESH")
+    }
+
+    func testRefreshCombinesBothMessagesWhenBothRequestsFail() async throws {
+        // REGRESSION: errorMessage was assigned separately in each catch block,
+        // so if both hours and whatsUp failed, the second assignment silently
+        // overwrote the first -- one of the two real errors was always lost.
+        let client = MockClient(
+            hoursResult: .failure(TestError.boom("hours failed")),
+            whatsUpResult: .failure(TestError.boom("whatsUp failed"))
+        )
+        let store = AppStore(client: client)
+
+        await store.refresh()
+
+        XCTAssertNotNil(store.errorMessage)
+        XCTAssertTrue(store.errorMessage?.contains("hours failed") ?? false)
+        XCTAssertTrue(store.errorMessage?.contains("whatsUp failed") ?? false)
     }
 }
