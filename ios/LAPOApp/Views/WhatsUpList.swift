@@ -15,7 +15,12 @@ struct WhatsUpList: View {
 
             if let objects = store.whatsUp?.objects, !objects.isEmpty {
                 VStack(spacing: 0) {
-                    ForEach(Array(objects.enumerated()), id: \.element.id) { index, obj in
+                    // Identify rows by their array position, not SkyObject.id (== name) --
+                    // two objects can legitimately share a name (e.g. multiple "Unknown"
+                    // entries from the empty-name-array decode fallback), and SwiftUI
+                    // silently collapses ForEach rows that share an id, dropping any
+                    // object past the first with a given name from the rendered list.
+                    ForEach(Array(objects.enumerated()), id: \.offset) { index, obj in
                         SkyObjectRow(object: obj)
                         if index < objects.count - 1 {
                             Divider()
