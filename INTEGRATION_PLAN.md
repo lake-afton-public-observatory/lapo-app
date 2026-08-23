@@ -6,12 +6,12 @@ not a greenfield proposal.
 
 ## Current state
 
-**`lapo-api`** is a public, unauthenticated read-only data API
-(`api.lakeafton.com`) serving astronomy/observatory data: `/hours`,
-`/planets`, `/visiblePlanets`, `/sun`, `/moon`, `/schedule`, `/whatsup`,
-`/whatsup-next`, `/weather`, `/forecast`, `/mars-weather`, `/iss`,
-`/iss-passes`, `/neo`. No routes are versioned or namespaced — everything
-hangs directly off the root (e.g. `GET /hours`, not `GET /v1/hours`).
+**`lapo-api`** is a public, read-only data API (`api.lakeafton.com`)
+serving astronomy/observatory data. Routes are namespaced under `/v1`
+(observatory routes directly under `/v1`, celestial routes under
+`/v1/celestial`, e.g. `GET /v1/hours`, `GET /v1/celestial/whatsup-next`);
+legacy unversioned paths (`/hours`, `/whatsup-next`, etc.) still work via
+301 redirects to their `/v1` equivalents.
 
 **`lapo-app`** already has a real (if small) SwiftUI iOS app wired up to
 consume two of those endpoints:
@@ -21,39 +21,33 @@ consume two of those endpoints:
 
 Android has no code yet (`android/` is just a placeholder).
 
-## The actual integration bug
+## The routing mismatch this section used to describe is resolved
 
-`LAPOClient` requests `v1/hours` and `v1/celestial/whatsup-next`. Neither
-path exists on the real API — the deployed routes are `/hours` and a
-regex match on `whatsup[_-]next` at the root, with no `v1` or `celestial`
-prefix anywhere in `lapo-api`. As written, **every request this app makes
-today would 404** and immediately surface `LAPOError.badResponse`.
+This section previously flagged that `LAPOClient` requested `v1/hours` and
+`v1/celestial/whatsup-next` while `lapo-api` served unversioned routes,
+meaning every request would 404. `lapo-api` has since added the `/v1`
+namespace described above (with legacy paths redirecting forward, not
+removed), so both of `LAPOClient`'s requests now resolve to real,
+namespaced routes exactly as written — no client-side path change needed.
 
-The response *shapes* the app expects are otherwise correct — `HoursResponse`
-matches `/hours`'s real nested `{ hours: { prettyHours, open, close } }`
-payload exactly. This is a pure routing mismatch, not a data-modeling one.
-
-**Fix:** update `LAPOClient`'s two paths to `hours` and `whatsup-next`
-(matching `lapo-api`'s actual, currently-unversioned routes) rather than
-adding versioning to the live public API — `api.lakeafton.com` is already
-deployed and may have other consumers; changing its URL structure to match
-an app that hasn't shipped yet is the riskier direction.
+The response *shapes* the app expects are still correct — `HoursResponse`
+matches `/v1/hours`'s real nested `{ hours: { prettyHours, open, close } }`
+payload exactly.
 
 ## Expanding what the app surfaces
 
-Once the two wired-up endpoints actually resolve, the API already has more
-than enough to make this a genuinely useful "plan your visit" app without
-any new backend work:
+The API already has more than enough to make this a genuinely useful "plan
+your visit" app without any new backend work:
 
-- `/weather` + `/forecast` — "is tonight worth it" at a glance
-- `/schedule` — the observatory's public viewing schedule (distinct from
-  `/hours`, which is just open/close times)
-- `/visiblePlanets` / `/moon` / `/sun` — richer sky detail beyond `/whatsup`'s
-  summary list, for a "details" screen per object
+- `/v1/weather/current` + `/v1/weather/forecast` — "is tonight worth it" at a glance
+- `/v1/schedule` — the observatory's public viewing schedule (distinct from
+  `/v1/hours`, which is just open/close times)
+- `/v1/celestial/visiblePlanets` / `/v1/celestial/moon` / `/v1/celestial/sun`
+  — richer sky detail beyond `/v1/celestial/whatsup`'s summary list, for a
+  "details" screen per object
 
-Each of these is a `GET`, unauthenticated, same response pattern as the two
-already integrated — adding them to `LAPOClient` and `AppStore` is
-mechanical once the path fix above lands.
+Each of these is a `GET` with the same response pattern as the two already
+integrated — adding them to `LAPOClient` and `AppStore` is mechanical.
 
 ## Android
 
@@ -71,12 +65,12 @@ pattern to port instead of building both in parallel.
 The "Create volunteer login mechanism" task (email + confirmation code,
 handbooks, scheduling) in this same Todoist section has **no home in either
 repo as they stand** — `lapo-api` has no user/account model at all (every
-route above is public, unauthenticated, read-only), and there's nothing in
-`lapo-app` for it to log into yet either.
+route above is public, read-only data with no per-user identity), and
+there's nothing in `lapo-app` for it to log into yet either.
 
 Don't bolt volunteer auth onto `lapo-api` as-is — it would mix a public,
-cacheable, unauthenticated data API with private user data in the same
-service and deploy. If volunteer features are wanted in this same mobile
+cacheable data API with private user data in the same service and deploy.
+If volunteer features are wanted in this same mobile
 app, the cleaner path is a **second, small backend** (even just a few
 routes: request-code, verify-code, session) that `lapo-app` talks to
 separately from `LAPOClient`, rather than expanding `lapo-api`'s scope.
