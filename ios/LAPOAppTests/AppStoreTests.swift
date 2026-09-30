@@ -1,12 +1,23 @@
 import XCTest
 @testable import LAPOApp
 
+private func makeTestWeather() -> WeatherResponse {
+    let json = """
+    {"temperature": {"celsius": 20, "fahrenheit": 68},
+     "wind": {"speed": {"metersPerSecond": 1, "milesPerHour": 2.24}, "direction": 180},
+     "groundLevelPressure": 1013, "humidity": 50, "clouds": 10,
+     "weather": [{"description": "Clear", "longDescription": "clear sky", "iconurl": "x"}]}
+    """.data(using: .utf8)!
+    return try! JSONDecoder().decode(WeatherResponse.self, from: json)
+}
+
 @MainActor
 final class AppStoreTests: XCTestCase {
 
     private struct MockClient: LAPOClientProtocol {
         var hoursResult: Result<HoursResponse, Error>
         var whatsUpResult: Result<WhatsUpResponse, Error>
+        var weatherResult: Result<WeatherResponse, Error> = .success(makeTestWeather())
 
         func hours() async throws -> HoursResponse {
             try hoursResult.get()
@@ -14,6 +25,10 @@ final class AppStoreTests: XCTestCase {
 
         func whatsUpNext() async throws -> WhatsUpResponse {
             try whatsUpResult.get()
+        }
+
+        func weather() async throws -> WeatherResponse {
+            try weatherResult.get()
         }
     }
 
@@ -46,8 +61,41 @@ final class AppStoreTests: XCTestCase {
 
         XCTAssertNotNil(store.hours)
         XCTAssertNotNil(store.whatsUp)
+        XCTAssertNotNil(store.weather)
         XCTAssertNil(store.errorMessage)
         XCTAssertFalse(store.isLoading)
+    }
+
+    func testRefreshSetsErrorMessageWhenWeatherFails() async throws {
+        let client = MockClient(
+            hoursResult: .success(makeHours()),
+            whatsUpResult: .success(try makeWhatsUp()),
+            weatherResult: .failure(TestError.boom("boom"))
+        )
+        let store = AppStore(client: client)
+
+        await store.refresh()
+
+        XCTAssertNotNil(store.errorMessage)
+        XCTAssertFalse(store.isLoading)
+    }
+
+    func testRefreshStillPopulatesHoursAndWhatsUpWhenWeatherFails() async throws {
+        // Same independent-results guarantee as hours/whatsUp: a failing
+        // weather() must not discard results the other two calls already
+        // resolved successfully.
+        let client = MockClient(
+            hoursResult: .success(makeHours()),
+            whatsUpResult: .success(try makeWhatsUp()),
+            weatherResult: .failure(TestError.boom("boom"))
+        )
+        let store = AppStore(client: client)
+
+        await store.refresh()
+
+        XCTAssertNotNil(store.hours)
+        XCTAssertNotNil(store.whatsUp)
+        XCTAssertNotNil(store.errorMessage)
     }
 
     func testRefreshSetsErrorMessageWhenHoursFails() async throws {
@@ -150,6 +198,10 @@ final class AppStoreTests: XCTestCase {
 
         func whatsUpNext() async throws -> WhatsUpResponse {
             whatsUpResponse
+        }
+
+        func weather() async throws -> WeatherResponse {
+            makeTestWeather()
         }
     }
 

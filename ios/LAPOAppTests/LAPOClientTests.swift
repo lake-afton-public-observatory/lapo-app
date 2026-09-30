@@ -72,6 +72,25 @@ final class LAPOClientTests: XCTestCase {
         XCTAssertTrue(URLProtocolMock.capturedURL?.absoluteString.hasSuffix("v1/celestial/whatsup-next") ?? false)
     }
 
+    func testWeatherHitsTheCorrectPathAndDecodes() async throws {
+        let json = """
+        {"temperature": {"celsius": 20, "fahrenheit": 68},
+         "wind": {"speed": {"metersPerSecond": 1, "milesPerHour": 2.24}, "direction": 180},
+         "groundLevelPressure": 1013, "humidity": 50, "clouds": 10,
+         "weather": [{"description": "Clear", "longDescription": "clear sky", "iconurl": "x"}]}
+        """.data(using: .utf8)!
+
+        URLProtocolMock.requestHandler = { request in
+            let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+            return (response, json)
+        }
+
+        let result = try await makeClient().weather()
+
+        XCTAssertEqual(result.temperature.fahrenheit, 68)
+        XCTAssertTrue(URLProtocolMock.capturedURL?.absoluteString.hasSuffix("v1/weather/current") ?? false)
+    }
+
     func testHoursThrowsBadResponseOnNon200Status() async throws {
         URLProtocolMock.requestHandler = { request in
             let response = HTTPURLResponse(url: request.url!, statusCode: 500, httpVersion: nil, headerFields: nil)!

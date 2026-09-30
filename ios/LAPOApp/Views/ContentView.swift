@@ -15,6 +15,7 @@ struct ContentView: View {
                     } else {
                         VStack(spacing: 16) {
                             HoursCard()
+                            WeatherCard()
                             WhatsUpList()
                         }
                         .padding(.horizontal, 16)

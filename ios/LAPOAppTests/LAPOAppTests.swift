@@ -97,6 +97,49 @@ final class LAPOAppTests: XCTestCase {
         XCTAssertEqual(response.objects[1].name, "M31")
         XCTAssertNil(response.objects[1].riseTime)
     }
+
+    func testWeatherResponseDecodesOptionalFieldsWhenPresent() throws {
+        let json = """
+        {"temperature": {"celsius": 20, "fahrenheit": 68, "feels_like": {"celsius": 18, "fahrenheit": 64.4},
+                          "min": {"celsius": 15, "fahrenheit": 59}, "max": {"celsius": 22, "fahrenheit": 71.6}},
+         "wind": {"speed": {"metersPerSecond": 1, "milesPerHour": 2.24}, "direction": 180},
+         "groundLevelPressure": 1013, "humidity": 50, "clouds": 10,
+         "weather": [{"description": "Clear", "longDescription": "clear sky", "iconurl": "x"}],
+         "visibility": {"km": 10, "mi": 6.21}, "dt": "2026-01-01T00:00:00-06:00"}
+        """.data(using: .utf8)!
+        let response = try JSONDecoder().decode(WeatherResponse.self, from: json)
+        XCTAssertEqual(response.temperature.fahrenheit, 68)
+        XCTAssertEqual(response.temperature.feelsLike?.fahrenheit, 64.4)
+        XCTAssertEqual(response.temperature.min?.celsius, 15)
+        XCTAssertEqual(response.temperature.max?.celsius, 22)
+        XCTAssertEqual(response.wind.direction, 180)
+        XCTAssertEqual(response.visibility?.km, 10)
+        XCTAssertEqual(response.dt, "2026-01-01T00:00:00-06:00")
+        XCTAssertEqual(response.weather.first?.longDescription, "clear sky")
+    }
+
+    func testWeatherResponseDecodesWithoutOptionalFields() throws {
+        // REGRESSION-SHAPED: _reshape_weather_item (lapo-api) only includes
+        // feels_like/min/max/visibility/dt when specific conditions hold
+        // (e.g. feels-like differs from actual temp) -- decoding must not
+        // require them.
+        let json = """
+        {"temperature": {"celsius": 20, "fahrenheit": 68},
+         "wind": {"speed": {"metersPerSecond": 1, "milesPerHour": 2.24}, "direction": null},
+         "groundLevelPressure": null, "humidity": 50, "clouds": null,
+         "weather": []}
+        """.data(using: .utf8)!
+        let response = try JSONDecoder().decode(WeatherResponse.self, from: json)
+        XCTAssertNil(response.temperature.feelsLike)
+        XCTAssertNil(response.temperature.min)
+        XCTAssertNil(response.temperature.max)
+        XCTAssertNil(response.wind.direction)
+        XCTAssertNil(response.groundLevelPressure)
+        XCTAssertNil(response.clouds)
+        XCTAssertNil(response.visibility)
+        XCTAssertNil(response.dt)
+        XCTAssertTrue(response.weather.isEmpty)
+    }
 }
 
 private extension SkyObject {
