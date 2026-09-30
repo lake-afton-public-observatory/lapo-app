@@ -3,6 +3,7 @@ import Foundation
 protocol LAPOClientProtocol {
     func hours() async throws -> HoursResponse
     func whatsUpNext() async throws -> WhatsUpResponse
+    func weather() async throws -> WeatherResponse
 }
 
 final class LAPOClient: LAPOClientProtocol {
@@ -27,6 +28,10 @@ final class LAPOClient: LAPOClientProtocol {
 
     func whatsUpNext() async throws -> WhatsUpResponse {
         try await get("v1/celestial/whatsup-next")
+    }
+
+    func weather() async throws -> WeatherResponse {
+        try await get("v1/weather/current")
     }
 
     private func get<T: Decodable>(_ path: String) async throws -> T {
