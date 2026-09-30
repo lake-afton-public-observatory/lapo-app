@@ -7,6 +7,7 @@ final class AppStoreTests: XCTestCase {
     private struct MockClient: LAPOClientProtocol {
         var hoursResult: Result<HoursResponse, Error>
         var whatsUpResult: Result<WhatsUpResponse, Error>
+        var visiblePlanetsResult: Result<[VisiblePlanet], Error> = .success([])
 
         func hours() async throws -> HoursResponse {
             try hoursResult.get()
@@ -14,6 +15,10 @@ final class AppStoreTests: XCTestCase {
 
         func whatsUpNext() async throws -> WhatsUpResponse {
             try whatsUpResult.get()
+        }
+
+        func visiblePlanets() async throws -> [VisiblePlanet] {
+            try visiblePlanetsResult.get()
         }
     }
 
@@ -38,16 +43,59 @@ final class AppStoreTests: XCTestCase {
         return try JSONDecoder().decode(WhatsUpResponse.self, from: json)
     }
 
+    private func makeVisiblePlanets() throws -> [VisiblePlanet] {
+        let json = """
+        [{"name": "Jupiter", "altitudeDegrees": 45.0, "distanceFromEarthAU": 5.2,
+          "distanceFromEarthMiles": 483000000.0, "magnitude": -2.0, "brightness": "very bright",
+          "constellation": "Vir"}]
+        """.data(using: .utf8)!
+        return try JSONDecoder().decode([VisiblePlanet].self, from: json)
+    }
+
     func testRefreshPopulatesHoursAndWhatsUpOnSuccess() async throws {
-        let client = MockClient(hoursResult: .success(makeHours()), whatsUpResult: .success(try makeWhatsUp()))
+        let client = MockClient(
+            hoursResult: .success(makeHours()),
+            whatsUpResult: .success(try makeWhatsUp()),
+            visiblePlanetsResult: .success(try makeVisiblePlanets())
+        )
         let store = AppStore(client: client)
 
         await store.refresh()
 
         XCTAssertNotNil(store.hours)
         XCTAssertNotNil(store.whatsUp)
+        XCTAssertEqual(store.visiblePlanets?.count, 1)
         XCTAssertNil(store.errorMessage)
         XCTAssertFalse(store.isLoading)
+    }
+
+    func testRefreshSetsErrorMessageWhenVisiblePlanetsFails() async throws {
+        let client = MockClient(
+            hoursResult: .success(makeHours()),
+            whatsUpResult: .success(try makeWhatsUp()),
+            visiblePlanetsResult: .failure(TestError.boom("boom"))
+        )
+        let store = AppStore(client: client)
+
+        await store.refresh()
+
+        XCTAssertNotNil(store.errorMessage)
+        XCTAssertFalse(store.isLoading)
+    }
+
+    func testRefreshStillPopulatesHoursAndWhatsUpWhenVisiblePlanetsFails() async throws {
+        let client = MockClient(
+            hoursResult: .success(makeHours()),
+            whatsUpResult: .success(try makeWhatsUp()),
+            visiblePlanetsResult: .failure(TestError.boom("boom"))
+        )
+        let store = AppStore(client: client)
+
+        await store.refresh()
+
+        XCTAssertNotNil(store.hours)
+        XCTAssertNotNil(store.whatsUp)
+        XCTAssertNotNil(store.errorMessage)
     }
 
     func testRefreshSetsErrorMessageWhenHoursFails() async throws {
@@ -150,6 +198,10 @@ final class AppStoreTests: XCTestCase {
 
         func whatsUpNext() async throws -> WhatsUpResponse {
             whatsUpResponse
+        }
+
+        func visiblePlanets() async throws -> [VisiblePlanet] {
+            []
         }
     }
 

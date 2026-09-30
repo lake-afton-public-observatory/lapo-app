@@ -3,6 +3,7 @@ import Foundation
 protocol LAPOClientProtocol {
     func hours() async throws -> HoursResponse
     func whatsUpNext() async throws -> WhatsUpResponse
+    func visiblePlanets() async throws -> [VisiblePlanet]
 }
 
 final class LAPOClient: LAPOClientProtocol {
@@ -27,6 +28,10 @@ final class LAPOClient: LAPOClientProtocol {
 
     func whatsUpNext() async throws -> WhatsUpResponse {
         try await get("v1/celestial/whatsup-next")
+    }
+
+    func visiblePlanets() async throws -> [VisiblePlanet] {
+        try await get("v1/celestial/visiblePlanets")
     }
 
     private func get<T: Decodable>(_ path: String) async throws -> T {

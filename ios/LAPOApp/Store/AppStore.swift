@@ -4,6 +4,7 @@ import Foundation
 final class AppStore: ObservableObject {
     @Published var hours: HoursResponse?
     @Published var whatsUp: WhatsUpResponse?
+    @Published var visiblePlanets: [VisiblePlanet]?
     @Published var isLoading = false
     @Published var errorMessage: String?
 
@@ -30,12 +31,14 @@ final class AppStore: ObservableObject {
 
         async let hoursResult = client.hours()
         async let whatsUpResult = client.whatsUpNext()
+        async let visiblePlanetsResult = client.visiblePlanets()
 
-        // Await and collect each result independently -- both requests run
-        // concurrently, so a failure in one must not discard a result the
-        // other already resolved successfully.
+        // Await and collect each result independently -- all three requests
+        // run concurrently, so a failure in one must not discard a result
+        // another already resolved successfully.
         var newHours: HoursResponse?
         var newWhatsUp: WhatsUpResponse?
+        var newVisiblePlanets: [VisiblePlanet]?
         var errors: [String] = []
         do {
             newHours = try await hoursResult
@@ -44,6 +47,11 @@ final class AppStore: ObservableObject {
         }
         do {
             newWhatsUp = try await whatsUpResult
+        } catch {
+            errors.append(error.localizedDescription)
+        }
+        do {
+            newVisiblePlanets = try await visiblePlanetsResult
         } catch {
             errors.append(error.localizedDescription)
         }
@@ -56,9 +64,10 @@ final class AppStore: ObservableObject {
 
         if let newHours { hours = newHours }
         if let newWhatsUp { whatsUp = newWhatsUp }
-        // If both requests fail, combine both messages -- assigning
+        if let newVisiblePlanets { visiblePlanets = newVisiblePlanets }
+        // If multiple requests fail, combine every message -- assigning
         // errorMessage separately in each catch would silently drop
-        // whichever one was set first.
+        // all but the last one set.
         errorMessage = errors.isEmpty ? nil : errors.joined(separator: "\n")
 
         isLoading = false

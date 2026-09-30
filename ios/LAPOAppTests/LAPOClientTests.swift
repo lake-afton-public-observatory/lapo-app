@@ -72,6 +72,26 @@ final class LAPOClientTests: XCTestCase {
         XCTAssertTrue(URLProtocolMock.capturedURL?.absoluteString.hasSuffix("v1/celestial/whatsup-next") ?? false)
     }
 
+    func testVisiblePlanetsHitsTheCorrectPathAndDecodesTheBareArray() async throws {
+        let json = """
+        [{"name": "Jupiter", "altitudeDegrees": 45.0, "distanceFromEarthAU": 5.2,
+          "distanceFromEarthMiles": 483000000.0, "magnitude": -2.0, "brightness": "very bright",
+          "constellation": "Vir"}]
+        """.data(using: .utf8)!
+
+        URLProtocolMock.requestHandler = { request in
+            let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+            return (response, json)
+        }
+
+        let result = try await makeClient().visiblePlanets()
+
+        XCTAssertEqual(result.count, 1)
+        XCTAssertEqual(result[0].name, "Jupiter")
+        XCTAssertEqual(result[0].brightness, "very bright")
+        XCTAssertTrue(URLProtocolMock.capturedURL?.absoluteString.hasSuffix("v1/celestial/visiblePlanets") ?? false)
+    }
+
     func testHoursThrowsBadResponseOnNon200Status() async throws {
         URLProtocolMock.requestHandler = { request in
             let response = HTTPURLResponse(url: request.url!, statusCode: 500, httpVersion: nil, headerFields: nil)!
